@@ -1,5 +1,5 @@
-import baseManifest from '@tailor-cms/ce-timeline-manifest';
-import type { ElementManifest } from '@tailor-cms/ce-timeline-manifest';
+import baseManifest from '@tailor-cms/ce-sequence-manifest';
+import type { ElementManifest } from '@tailor-cms/ce-sequence-manifest';
 
 import Display from './components/Display.vue';
 

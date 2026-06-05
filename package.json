@@ -1,6 +1,6 @@
 {
-  "name": "@tailor-cms/ce-timeline",
-  "description": "Tailor CMS timeline content element",
+  "name": "@tailor-cms/ce-sequence",
+  "description": "Tailor CMS sequence content element",
   "author": "Studion <info@gostudion.com> (https://github.com/tailor-cms)",
   "type": "module",
   "private": true,
@@ -29,5 +29,10 @@
   "packageManager": "pnpm@10.12.3",
   "engines": {
     "node": ">=24"
+  },
+  "pnpm": {
+    "overrides": {
+      "vuetify": "~4.0.6"
+    }
   }
 }

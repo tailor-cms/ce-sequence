@@ -4,7 +4,7 @@
   "commit": false,
   "fixed": [
     [
-      "@tailor-cms/ce-timeline-*"
+      "@tailor-cms/ce-sequence-*"
     ]
   ],
   "linked": [],

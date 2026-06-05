@@ -1,6 +1,6 @@
 {
-  "name": "@tailor-cms/ce-timeline-server",
-  "description": "Tailor CMS timeline element server component",
+  "name": "@tailor-cms/ce-sequence-server",
+  "description": "Tailor CMS sequence element server component",
   "author": "Studion <info@gostudion.com> (https://github.com/tailor-cms)",
   "type": "module",
   "version": "0.0.1",
@@ -25,7 +25,7 @@
     "prepublish": "pnpm build"
   },
   "dependencies": {
-    "@tailor-cms/ce-timeline-manifest": "workspace:*",
+    "@tailor-cms/ce-sequence-manifest": "workspace:*",
     "@tailor-cms/cek-common": "^2.0.1"
   },
   "devDependencies": {

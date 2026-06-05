@@ -1,6 +1,6 @@
 {
-  "name": "@tailor-cms/ce-timeline-display",
-  "description": "Tailor CMS timeline element end-user component",
+  "name": "@tailor-cms/ce-sequence-display",
+  "description": "Tailor CMS sequence element end-user component",
   "author": "Studion <info@gostudion.com> (https://github.com/tailor-cms)",
   "type": "module",
   "version": "0.0.1",
@@ -27,9 +27,13 @@
   "peerDependencies": {
     "vue": "^3.5.29"
   },
+  "dependencies": {
+    "lodash-es": "^4.18.1"
+  },
   "devDependencies": {
-    "@tailor-cms/ce-timeline-manifest": "workspace:*",
+    "@tailor-cms/ce-sequence-manifest": "workspace:*",
     "@tailor-cms/eslint-config": "^2.0.1",
+    "@types/lodash-es": "^4.17.12",
     "@vitejs/plugin-vue": "^6.0.6",
     "typescript": "^6.0.3",
     "vite": "^8.0.10",

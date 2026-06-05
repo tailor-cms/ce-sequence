@@ -1,6 +1,6 @@
 {
-  "name": "@tailor-cms/ce-timeline-manifest",
-  "description": "Tailor CMS timeline element manifest",
+  "name": "@tailor-cms/ce-sequence-manifest",
+  "description": "Tailor CMS sequence element manifest",
   "author": "Studion <info@gostudion.com> (https://github.com/tailor-cms)",
   "type": "module",
   "version": "0.0.1",
@@ -25,7 +25,8 @@
     "prepublish": "pnpm build"
   },
   "dependencies": {
-    "@tailor-cms/cek-common": "^2.0.1"
+    "@tailor-cms/cek-common": "^2.0.1",
+    "uuid": "^14.0.0"
   },
   "devDependencies": {
     "@tailor-cms/eslint-config": "^2.0.1",

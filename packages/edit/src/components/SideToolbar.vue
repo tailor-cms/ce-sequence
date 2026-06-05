@@ -1,14 +1,27 @@
 <template>
-  <div>
-    <p>Edit element side toolbar {{ element?.id }}</p>
-  </div>
+  <VSwitch
+    :model-value="numbered"
+    color="primary"
+    density="compact"
+    hint="Show each entry's position number on its node."
+    label="Numbered"
+    persistent-hint
+    @update:model-value="onChange"
+  />
 </template>
 
 <script setup lang="ts">
-import type { Element, ElementData } from '@tailor-cms/ce-timeline-manifest';
+import { inject, ref } from 'vue';
+import type { Element } from '@tailor-cms/ce-sequence-manifest';
 
-defineProps<{ element: Element }>();
-defineEmits<{ save: [data: ElementData] }>();
+const props = defineProps<{ element: Element }>();
+
+const elementBus: any = inject('$elementBus');
+
+const numbered = ref<boolean>(props.element.data.numbered ?? true);
+
+const onChange = (value: boolean | null) => {
+  numbered.value = !!value;
+  elementBus.emit('numbered', numbered.value);
+};
 </script>
-
-<style scoped></style>
