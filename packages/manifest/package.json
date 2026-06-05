@@ -1,6 +1,6 @@
 {
-  "name": "tce-manifest",
-  "description": "Tailor CMS timeline content element",
+  "name": "@tailor-cms/ce-timeline-manifest",
+  "description": "Tailor CMS timeline element manifest",
   "author": "Studion <info@gostudion.com> (https://github.com/tailor-cms)",
   "type": "module",
   "version": "0.0.1",
@@ -25,10 +25,10 @@
     "prepublish": "pnpm build"
   },
   "dependencies": {
-    "@tailor-cms/cek-common": "2.0.1"
+    "@tailor-cms/cek-common": "^2.0.1"
   },
   "devDependencies": {
-    "@tailor-cms/eslint-config": "2.0.1",
+    "@tailor-cms/eslint-config": "^2.0.1",
     "tsdown": "^0.21.10",
     "typescript": "^6.0.3"
   },
@@ -38,6 +38,9 @@
       "cjs",
       "esm"
     ]
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "engines": {
     "node": ">=24"

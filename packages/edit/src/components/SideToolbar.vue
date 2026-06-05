@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Element, ElementData } from 'tce-manifest';
+import type { Element, ElementData } from '@tailor-cms/ce-timeline-manifest';
 
 defineProps<{ element: Element }>();
 defineEmits<{ save: [data: ElementData] }>();

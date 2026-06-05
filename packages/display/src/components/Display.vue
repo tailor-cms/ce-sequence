@@ -7,7 +7,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Element } from 'tce-manifest';
+import type { Element } from '@tailor-cms/ce-timeline-manifest';
 
 defineProps<{ element: Element; userState: any }>();
 defineEmits<{ interaction: [data: any] }>();

@@ -1,30 +1,29 @@
-# Custom Element
+# Timeline
 
-> **Template note:** this README was scaffolded from `@tailor-cms/tce-template`.
-> Rename the title, update the **Type**, rewrite the **Data** table, and fill in
-> the **Edit** / **Display** sections to describe what your element actually
-> does. Delete this note when done.
+Timeline content element — a sequence of ordered events.
 
-One-line description of what the element is.
+**Type:** `TIMELINE`
 
-**Type:** `ORG_CUSTOM_ELEMENT`
+> **Scaffold:** the package is wired for CEK v2, but the Edit and Display
+> components are still the template placeholders. Implement the timeline UI and
+> fill in the **Data** table below as you build it out.
 
 ## Data
 
 | Field | Type | Description |
 |-------|------|-------------|
-| _add your fields here_ | | |
+| _add timeline fields here_ | | |
 
 Only list fields that are meaningful to the element's behavior. Omit framework
 internals like `assets` (the dual-URL storage map).
 
 ## Edit
 
-- _what the author sees and can do_
+- _author-facing timeline editor (to be implemented)_
 
 ## Display
 
-- _what the learner sees_
+- _learner-facing timeline (to be implemented)_
 
 ## Development
 

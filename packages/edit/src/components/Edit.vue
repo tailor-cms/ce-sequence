@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { Element, ElementData } from 'tce-manifest';
+import type { Element, ElementData } from '@tailor-cms/ce-timeline-manifest';
 import type { ElementReferences } from '@tailor-cms/cek-common';
 
 defineProps<{
