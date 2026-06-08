@@ -40,6 +40,7 @@ test.describe('Entry management', () => {
 test.describe('Mode', () => {
   test('Reveals a per-entry date field in timeline mode', async ({ page }) => {
     const edit = new Edit(page);
+    await edit.focus();
     await expect(edit.markerInput(0)).not.toBeVisible();
     await edit.modeBtn('Timeline').click();
     await expect(edit.markerInput(0)).toBeVisible();
