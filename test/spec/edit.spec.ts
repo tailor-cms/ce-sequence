@@ -37,6 +37,17 @@ test.describe('Entry management', () => {
   });
 });
 
+test.describe('Mode', () => {
+  test('Reveals a per-entry date field in timeline mode', async ({ page }) => {
+    const edit = new Edit(page);
+    await expect(edit.markerInput(0)).not.toBeVisible();
+    await edit.modeBtn('Timeline').click();
+    await expect(edit.markerInput(0)).toBeVisible();
+    await edit.modeBtn('Steps').click();
+    await expect(edit.markerInput(0)).not.toBeVisible();
+  });
+});
+
 test.describe('Readonly mode', () => {
   test('Hides add/delete controls', async ({ page }) => {
     const edit = new Edit(page);

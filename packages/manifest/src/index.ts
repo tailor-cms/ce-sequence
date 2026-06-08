@@ -19,11 +19,11 @@ export const name = 'Sequence';
 // Function which inits element state (data property on the Content Element
 // entity). A sequence starts with two empty entries.
 export const initState: DataInitializer = (): ElementData => ({
-  numbered: true,
+  mode: 'steps',
   embeds: {},
   items: {
-    [id1]: { id: id1, title: '', body: {}, position: 1 },
-    [id2]: { id: id2, title: '', body: {}, position: 2 },
+    [id1]: { id: id1, marker: '', title: '', body: {}, position: 1 },
+    [id2]: { id: id2, marker: '', title: '', body: {}, position: 2 },
   },
 });
 
@@ -50,21 +50,23 @@ export const ai: AiConfig = {
     schema: {
       type: 'object',
       properties: {
+        mode: { type: 'string', enum: ['steps', 'timeline'] },
         entries: {
           type: 'array',
           minItems: 2,
           items: {
             type: 'object',
             properties: {
+              marker: { type: 'string' },
               title: { type: 'string' },
               content: { type: 'string' },
             },
-            required: ['title', 'content'],
+            required: ['marker', 'title', 'content'],
             additionalProperties: false,
           },
         },
       },
-      required: ['entries'],
+      required: ['mode', 'entries'],
       additionalProperties: false,
     },
   },
@@ -72,15 +74,25 @@ export const ai: AiConfig = {
     Generate a sequence content element as an object with the following
     properties:
     {
+      "mode": "steps" | "timeline",
       "entries": [
         {
+          "marker": "",
           "title": "",
           "content": ""
         }
       ]
     }
     where:
-      - 'entries' is an ordered array of steps/entries where:
+      - 'mode' describes how the sequence is presented. Choose it from the topic:
+        - 'timeline' for chronological subjects (historical events, milestones,
+          anything organised by date or period).
+        - 'steps' for procedural subjects (how-tos, processes, ordered
+          instructions).
+      - 'entries' is an ordered array of entries where:
+        - 'marker' is the entry's date or period (e.g. "1990", "Q1 2024",
+          "Day 1") — fill it only in 'timeline' mode; leave it "" in 'steps'
+          mode.
         - 'title' is a short heading for the entry. Do not prefix it with an
           ordinal or step number (e.g. "Step 1:", "1.", "First:") — entries are
           numbered automatically.
@@ -91,10 +103,11 @@ export const ai: AiConfig = {
     // the prompt; entries are numbered automatically, so strip it.
     const stripOrdinal = (title: string): string =>
       title.replace(/^\s*(step\s*)?\d+\s*[.):-]\s*/i, '').trim();
+    const isTimeline = val.mode === 'timeline';
     const result = val.entries.reduce(
       (
         acc: Record<string, any>,
-        entry: { title: string; content: string },
+        entry: { marker: string; title: string; content: string },
         index: number,
       ) => {
         const embedId = uuid();
@@ -108,6 +121,7 @@ export const ai: AiConfig = {
         };
         acc.items[itemId] = {
           id: itemId,
+          marker: isTimeline ? (entry.marker ?? '') : '',
           title: stripOrdinal(entry.title),
           body: { [embedId]: true },
           position: index + 1,
@@ -116,7 +130,7 @@ export const ai: AiConfig = {
       },
       { items: {}, embeds: {} },
     );
-    return { ...result, numbered: true };
+    return { ...result, mode: isTimeline ? 'timeline' : 'steps' };
   },
 };
 

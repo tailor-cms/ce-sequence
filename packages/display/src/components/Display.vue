@@ -10,15 +10,20 @@
       <VTimelineItem
         v-for="(item, index) in items"
         :key="item.id"
+        :size="isTimeline ? 'small' : 'large'"
         dot-color="primary"
-        size="large"
       >
-        <template v-if="numbered" #icon>
+        <template v-if="!isTimeline" #icon>
           <span class="sequence-item-index font-weight-bold">
             {{ index + 1 }}
           </span>
         </template>
-        <div class="mt-2">
+        <template v-if="isTimeline && item.marker" #opposite>
+          <span class="sequence-item-marker text-medium-emphasis">
+            {{ item.marker }}
+          </span>
+        </template>
+        <div :class="{ 'mt-2': !isTimeline }">
           <div v-if="item.title" class="sequence-item-title mb-2">
             {{ item.title }}
           </div>
@@ -36,7 +41,7 @@ import { computed } from 'vue';
 
 const props = defineProps<{ element: Element; userState: any }>();
 
-const numbered = computed(() => props.element.data.numbered ?? true);
+const isTimeline = computed(() => props.element.data.mode === 'timeline');
 
 const items = computed<SequenceItem[]>(() =>
   sortBy(props.element.data.items, 'position'),
@@ -62,5 +67,10 @@ const embedsByItem = computed(() =>
 .sequence-item-title {
   font-size: 1.25rem;
   font-weight: bold;
+}
+
+.sequence-item-marker {
+  font-weight: 500;
+  white-space: nowrap;
 }
 </style>
