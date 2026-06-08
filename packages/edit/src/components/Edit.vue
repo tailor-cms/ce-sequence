@@ -134,8 +134,6 @@ const calculateNewPosition = (oldIndex: number, newIndex: number) => {
   return (nextPos + prevPos) / 2;
 };
 
-// useDraggable binds Sortable to the panels root element, lifecycle handled
-// for us. Reorder math mirrors the carousel/accordion elements.
 useDraggable(panels, {
   animation: 150,
   handle: '.sequence-drag-handle',
