@@ -53,9 +53,3 @@ pnpm test
 ```sh
 docker compose up
 ```
-
-## Documentation
-
-- [xt Framework](https://tailor-cms.github.io/xt/introduction.html)
-- [Edit](https://tailor-cms.github.io/xt/edit-package) · [Display](https://tailor-cms.github.io/xt/display-package) · [Server](https://tailor-cms.github.io/xt/server-package)
-- [Manifest](https://tailor-cms.github.io/xt/manifest) · [Runtime](https://tailor-cms.github.io/xt/runtime) · [Testing](https://tailor-cms.github.io/xt/testing)
