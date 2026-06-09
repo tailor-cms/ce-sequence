@@ -16,9 +16,24 @@
           >
             <VIcon icon="mdi-drag-vertical" />
           </span>
-          <VAvatar v-if="numbered" color="primary" size="24" start>
+          <VAvatar v-if="mode === 'steps'" color="primary" size="24" start>
             <span class="text-caption">{{ position }}</span>
           </VAvatar>
+          <VTextField
+            v-if="mode === 'timeline'"
+            v-model="draft.marker"
+            :readonly="isReadonly"
+            autocomplete="off"
+            bg-color="white"
+            class="sequence-item-marker flex-grow-0 mr-2"
+            density="compact"
+            placeholder="Date"
+            variant="outlined"
+            width="96"
+            hide-details
+            @click.stop
+            @update:model-value="save"
+          />
           <VTextField
             v-model="draft.title"
             :readonly="isReadonly"
@@ -80,7 +95,10 @@
 <script lang="ts" setup>
 import { cloneDeep, debounce, forEach, isEmpty } from 'lodash-es';
 import { computed, inject, reactive } from 'vue';
-import type { SequenceItem } from '@tailor-cms/ce-sequence-manifest';
+import type {
+  SequenceItem,
+  SequenceMode,
+} from '@tailor-cms/ce-sequence-manifest';
 
 interface Embed {
   id: string;
@@ -94,7 +112,7 @@ interface Props {
   allowDeletion: boolean;
   item: SequenceItem;
   position: number;
-  numbered: boolean;
+  mode: SequenceMode;
   embedElementConfig: any[];
   embeds?: Record<string, Embed>;
   isReadonly?: boolean;
@@ -113,9 +131,8 @@ const emit = defineEmits<{
 
 const eventBus = inject('$eventBus') as any;
 
-// Local draft of the title so an in-flight debounced save doesn't clobber
-// what the author is typing.
 const draft = reactive({
+  marker: props.item.marker,
   title: props.item.title,
 });
 

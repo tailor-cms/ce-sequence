@@ -27,7 +27,7 @@
             :is-expanded="expanded.includes(item.id)"
             :is-readonly="isReadonly"
             :item="item"
-            :numbered="elementData.numbered"
+            :mode="elementData.mode"
             :position="index + 1"
             @delete="deleteItem(item.id)"
             @save="saveItem($event)"
@@ -50,7 +50,11 @@
 <script lang="ts" setup>
 import { cloneDeep, isNumber, pick, pull, reduce, sortBy } from 'lodash-es';
 import { computed, inject, reactive, ref } from 'vue';
-import type { Element, ElementData } from '@tailor-cms/ce-sequence-manifest';
+import type {
+  Element,
+  ElementData,
+  SequenceMode,
+} from '@tailor-cms/ce-sequence-manifest';
 import manifest from '@tailor-cms/ce-sequence-manifest';
 import { useDraggable } from 'vue-draggable-plus';
 import { v4 as uuid } from 'uuid';
@@ -74,8 +78,8 @@ const expanded = ref<string[]>([]);
 const elementData = reactive<ElementData>(cloneDeep(props.element.data));
 const panels = ref();
 
-elementBus.on('numbered', (numbered: boolean) => {
-  elementData.numbered = numbered;
+elementBus.on('mode', (mode: SequenceMode) => {
+  elementData.mode = mode;
   emit('save', elementData);
 });
 
@@ -110,6 +114,7 @@ const addItem = () => {
   const id = uuid();
   elementData.items[id] = {
     id,
+    marker: '',
     title: '',
     body: {},
     position: itemCount.value + 1,
@@ -129,8 +134,6 @@ const calculateNewPosition = (oldIndex: number, newIndex: number) => {
   return (nextPos + prevPos) / 2;
 };
 
-// useDraggable binds Sortable to the panels root element, lifecycle handled
-// for us. Reorder math mirrors the carousel/accordion elements.
 useDraggable(panels, {
   animation: 150,
   handle: '.sequence-drag-handle',

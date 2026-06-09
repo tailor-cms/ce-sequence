@@ -27,4 +27,12 @@ export class Edit extends pom.EditPanel {
       exact: true,
     });
   }
+
+  modeBtn(name: 'Steps' | 'Timeline'): Locator {
+    return this.sideToolbar.getByRole('button', { name, exact: true });
+  }
+
+  markerInput(index: number): Locator {
+    return this.entryHeader(index).getByPlaceholder('Date');
+  }
 }
