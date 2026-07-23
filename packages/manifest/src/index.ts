@@ -7,9 +7,6 @@ import type {
   ElementManifest,
 } from './interfaces';
 
-const id1 = uuid();
-const id2 = uuid();
-
 // Element unique id within the target system (e.g. Tailor)
 export const type = 'SEQUENCE';
 
@@ -18,14 +15,18 @@ export const name = 'Sequence';
 
 // Function which inits element state (data property on the Content Element
 // entity). A sequence starts with two empty entries.
-export const initState: DataInitializer = (): ElementData => ({
-  mode: 'steps',
-  embeds: {},
-  items: {
-    [id1]: { id: id1, marker: '', title: '', body: {}, position: 1 },
-    [id2]: { id: id2, marker: '', title: '', body: {}, position: 2 },
-  },
-});
+export const initState: DataInitializer = (): ElementData => {
+  const id1 = uuid();
+  const id2 = uuid();
+  return {
+    mode: 'steps',
+    embeds: {},
+    items: {
+      [id1]: { id: id1, marker: '', title: '', body: {}, position: 1 },
+      [id2]: { id: id2, marker: '', title: '', body: {}, position: 2 },
+    },
+  };
+};
 
 // Can be loaded from package.json
 export const version = '1.0';

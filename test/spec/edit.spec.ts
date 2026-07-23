@@ -35,6 +35,14 @@ test.describe('Entry management', () => {
       .click();
     await expect(edit.entries).toHaveCount(1);
   });
+
+  test('Edits an entry title', async ({ page }) => {
+    const edit = new Edit(page);
+    await edit.titleInput(0).fill('My custom title');
+    await edit.titleInput(0).blur();
+    await page.reload({ waitUntil: 'networkidle' });
+    await expect(edit.titleInput(0)).toHaveValue('My custom title');
+  });
 });
 
 test.describe('Mode', () => {

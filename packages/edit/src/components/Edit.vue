@@ -1,61 +1,57 @@
 <template>
-  <VCard class="tce-sequence" color="grey-lighten-5">
-    <VToolbar class="px-4" color="primary-darken-2" height="36">
-      <VIcon
-        :icon="manifest.ui.icon"
-        color="secondary-lighten-2"
-        size="18"
-        start
-      />
-      <span class="text-title-small">{{ manifest.name }}</span>
-    </VToolbar>
-    <div class="pa-6 text-center">
-      <VExpansionPanels
-        ref="panels"
-        v-model="expanded"
-        rounded="lg"
-        flat
-        multiple
-      >
-        <VExpandTransition v-if="!!itemCount" group>
-          <SequenceItem
-            v-for="(item, index) in items"
-            :key="item.id"
-            :allow-deletion="itemCount > 1"
-            :embed-element-config="embedElementConfig"
-            :embeds="embedsByItem[item.id]"
-            :is-expanded="expanded.includes(item.id)"
-            :is-readonly="isReadonly"
-            :item="item"
-            :mode="elementData.mode"
-            :position="index + 1"
-            @delete="deleteItem(item.id)"
-            @save="saveItem($event)"
-          />
-        </VExpandTransition>
-      </VExpansionPanels>
-      <VBtn
-        v-if="!isReadonly"
-        class="mt-6"
-        color="primary-darken-4"
-        prepend-icon="mdi-plus"
-        text="Add Entry"
-        variant="text"
-        @click="addItem"
-      />
-    </div>
-  </VCard>
+  <div class="tce-sequence text-center">
+    <VExpansionPanels
+      ref="panels"
+      v-model="expanded"
+      rounded="lg"
+      flat
+      multiple
+    >
+      <VExpandTransition v-if="!!itemCount" group>
+        <SequenceItem
+          v-for="(item, index) in items"
+          :key="item.id"
+          :allow-deletion="itemCount > 1"
+          :embed-element-config="embedElementConfig"
+          :embeds="embedsByItem[item.id]"
+          :is-expanded="expanded.includes(item.id)"
+          :is-readonly="isReadonly"
+          :item="item"
+          :mode="elementData.mode"
+          :position="index + 1"
+          class="text-left"
+          @delete="deleteItem(item.id)"
+          @save="saveItem($event)"
+        />
+      </VExpandTransition>
+    </VExpansionPanels>
+    <VBtn
+      v-if="!isReadonly"
+      class="mt-4"
+      prepend-icon="mdi-plus"
+      text="Add Entry"
+      variant="text"
+      @click="addItem"
+    />
+  </div>
 </template>
 
 <script lang="ts" setup>
-import { cloneDeep, isNumber, pick, pull, reduce, sortBy } from 'lodash-es';
-import { computed, inject, reactive, ref } from 'vue';
+import {
+  cloneDeep,
+  isEqual,
+  isNumber,
+  pick,
+  pull,
+  reduce,
+  sortBy,
+} from 'lodash-es';
+import { computed, inject, reactive, ref, watch } from 'vue';
 import type {
   Element,
   ElementData,
   SequenceMode,
 } from '@tailor-cms/ce-sequence-manifest';
-import manifest from '@tailor-cms/ce-sequence-manifest';
 import { useDraggable } from 'vue-draggable-plus';
 import { v4 as uuid } from 'uuid';
 
@@ -145,13 +141,17 @@ useDraggable(panels, {
     emit('save', elementData);
   },
 });
+
+watch(
+  () => props.element.data,
+  (data) => {
+    if (isEqual(data, elementData)) return;
+    Object.assign(elementData, cloneDeep(data));
+  },
+);
 </script>
 
 <style lang="scss" scoped>
-.tce-sequence {
-  text-align: left;
-}
-
 :deep(.sortable-ghost) > * {
   visibility: hidden;
 }

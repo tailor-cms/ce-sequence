@@ -23,13 +23,22 @@
 
 <script setup lang="ts">
 import type { Element, SequenceMode } from '@tailor-cms/ce-sequence-manifest';
-import { inject, ref } from 'vue';
+import { inject, ref, watch } from 'vue';
 
 const props = defineProps<{ element: Element }>();
 
 const elementBus: any = inject('$elementBus');
 
 const mode = ref<SequenceMode>(props.element.data.mode ?? 'steps');
+
+watch(
+  () => props.element.data.mode,
+  (value) => {
+    const next = value ?? 'steps';
+    if (next === mode.value) return;
+    mode.value = next;
+  },
+);
 
 const onChange = (value: SequenceMode) => {
   if (!value) return;
