@@ -1,11 +1,10 @@
 <!-- eslint-disable vue/no-undef-components -->
 <template>
-  <VExpansionPanel :value="item.id">
+  <VExpansionPanel :value="item.id" class="border sm">
     <VHover v-slot="{ isHovering, props: hoverProps }">
       <VExpansionPanelTitle
         v-bind="hoverProps"
         class="pa-2 pr-4"
-        color="primary-lighten-5"
         min-height="56"
       >
         <div class="d-flex align-center w-100 ga-2">
@@ -16,36 +15,44 @@
           >
             <VIcon icon="mdi-drag-vertical" />
           </span>
-          <VAvatar v-if="mode === 'steps'" color="primary" size="24" start>
-            <span class="text-caption">{{ position }}</span>
+          <VAvatar
+            v-if="mode === 'steps'"
+            color="surface-container"
+            size="26"
+            start
+          >
+            <span class="text-label-large">{{ position }}</span>
           </VAvatar>
-          <VTextField
-            v-if="mode === 'timeline'"
-            v-model="draft.marker"
-            :readonly="isReadonly"
-            autocomplete="off"
-            bg-color="white"
-            class="sequence-item-marker flex-grow-0 mr-2"
-            density="compact"
-            placeholder="Date"
-            variant="outlined"
-            width="96"
-            hide-details
-            @click.stop
-            @update:model-value="save"
-          />
+          <template v-else>
+            <VTextField
+              v-model="draft.marker"
+              :readonly="isReadonly"
+              bg-color="transparent"
+              class="sequence-item-marker flex-grow-0"
+              density="compact"
+              placeholder="Date"
+              variant="plain"
+              width="120"
+              hide-details
+              @blur="save.flush()"
+              @click.stop
+              @keyup.space.prevent
+              @update:model-value="save"
+            />
+            <VDivider class="mx-2 my-1" opacity="0.5" vertical />
+          </template>
           <VTextField
             v-model="draft.title"
             :readonly="isReadonly"
-            autocomplete="off"
             bg-color="transparent"
             class="sequence-item-title"
             density="compact"
             placeholder="Title"
             variant="plain"
-            flat
             hide-details
+            @blur="save.flush()"
             @click.stop
+            @keyup.space.prevent
             @update:model-value="save"
           />
           <VFadeTransition>
@@ -69,9 +76,9 @@
       <VAlert
         v-if="!hasElements"
         class="mx-6 mt-4"
-        color="primary-darken-1"
         icon="mdi-information-outline"
         variant="tonal"
+        prominent
       >
         <template v-if="isReadonly">
           No content elements added to this entry.
@@ -99,6 +106,8 @@ import type {
   SequenceItem,
   SequenceMode,
 } from '@tailor-cms/ce-sequence-manifest';
+
+const SAVE_DEBOUNCE = 3000;
 
 interface Embed {
   id: string;
@@ -145,7 +154,7 @@ const currentItem = (): SequenceItem => ({
 
 const save = debounce(() => {
   emit('save', { item: currentItem(), embeds: props.embeds });
-}, 500);
+}, SAVE_DEBOUNCE);
 
 const saveEmbed = (embeds: Record<string, Embed>) => {
   const item = currentItem();
@@ -171,15 +180,14 @@ const deleteEntry = () => {
 </script>
 
 <style lang="scss" scoped>
-.v-expansion-panel {
-  border: thin solid rgba(0, 0, 0, 0.12);
-}
-
 .sequence-drag-handle {
   cursor: pointer;
 }
 
-.sequence-item-title:deep(.v-field) {
-  --v-field-input-padding-top: 0;
+.sequence-item-title,
+.sequence-item-marker {
+  :deep(.v-field) {
+    --v-field-input-padding-top: 0;
+  }
 }
 </style>

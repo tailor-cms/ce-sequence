@@ -35,4 +35,8 @@ export class Edit extends pom.EditPanel {
   markerInput(index: number): Locator {
     return this.entryHeader(index).getByPlaceholder('Date');
   }
+
+  titleInput(index: number): Locator {
+    return this.entryHeader(index).getByPlaceholder('Title');
+  }
 }
