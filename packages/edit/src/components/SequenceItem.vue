@@ -6,6 +6,8 @@
         v-bind="hoverProps"
         class="pa-2 pr-4"
         min-height="56"
+        readonly
+        @click="onTitleClick"
       >
         <div class="d-flex align-center w-100 ga-2">
           <span
@@ -17,7 +19,7 @@
           </span>
           <VAvatar
             v-if="mode === 'steps'"
-            color="surface-container"
+            color="surface-container-highest"
             size="26"
             start
           >
@@ -35,7 +37,6 @@
               width="120"
               hide-details
               @blur="save.flush()"
-              @click.stop
               @keyup.space.prevent
               @update:model-value="save"
             />
@@ -51,7 +52,6 @@
             variant="plain"
             hide-details
             @blur="save.flush()"
-            @click.stop
             @keyup.space.prevent
             @update:model-value="save"
           />
@@ -136,6 +136,7 @@ const props = withDefaults(defineProps<Props>(), {
 const emit = defineEmits<{
   save: [payload: { item: SequenceItem; embeds?: Record<string, Embed> }];
   delete: [];
+  toggle: [];
 }>();
 
 const eventBus = inject('$eventBus') as any;
@@ -146,6 +147,14 @@ const draft = reactive({
 });
 
 const hasElements = computed(() => !isEmpty(props.embeds));
+
+// Header toggle is off (`readonly`) so field clicks don't collapse the panel;
+// toggling here instead of stopping propagation keeps the click bubbling up to
+// the host, which is what focuses the element.
+const onTitleClick = ({ target }: MouseEvent) => {
+  if ((target as HTMLElement).closest('.v-input, .v-btn')) return;
+  emit('toggle');
+};
 
 const currentItem = (): SequenceItem => ({
   ...cloneDeep(props.item),
