@@ -2,6 +2,7 @@
   "name": "@tailor-cms/ce-sequence",
   "description": "Tailor CMS sequence content element",
   "author": "Studion <info@gostudion.com> (https://github.com/tailor-cms)",
+  "license": "MIT",
   "type": "module",
   "private": true,
   "scripts": {
