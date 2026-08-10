@@ -2,6 +2,13 @@
   "name": "@tailor-cms/ce-sequence-display",
   "description": "Tailor CMS sequence element end-user component",
   "author": "Studion <info@gostudion.com> (https://github.com/tailor-cms)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tailor-cms/ce-sequence.git",
+    "directory": "packages/display"
+  },
+  "homepage": "https://github.com/tailor-cms/ce-sequence#readme",
+  "bugs": "https://github.com/tailor-cms/ce-sequence/issues",
   "type": "module",
   "version": "0.0.5",
   "exports": {

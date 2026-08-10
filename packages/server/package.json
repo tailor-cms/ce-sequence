@@ -2,6 +2,13 @@
   "name": "@tailor-cms/ce-sequence-server",
   "description": "Tailor CMS sequence element server component",
   "author": "Studion <info@gostudion.com> (https://github.com/tailor-cms)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tailor-cms/ce-sequence.git",
+    "directory": "packages/server"
+  },
+  "homepage": "https://github.com/tailor-cms/ce-sequence#readme",
+  "bugs": "https://github.com/tailor-cms/ce-sequence/issues",
   "type": "module",
   "version": "0.0.5",
   "exports": {
