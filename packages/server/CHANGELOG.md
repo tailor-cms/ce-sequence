@@ -1,5 +1,13 @@
 # @tailor-cms/ce-sequence-server
 
+## 0.0.5
+
+### Patch Changes
+
+- Bump dependencies.
+- Updated dependencies
+  - @tailor-cms/ce-sequence-manifest@0.0.5
+
 ## 0.0.3
 
 ### Patch Changes
