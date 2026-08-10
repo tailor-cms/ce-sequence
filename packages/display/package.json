@@ -3,7 +3,7 @@
   "description": "Tailor CMS sequence element end-user component",
   "author": "Studion <info@gostudion.com> (https://github.com/tailor-cms)",
   "type": "module",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "exports": {
     ".": {
       "import": "./dist/index.js",
@@ -32,7 +32,7 @@
   },
   "devDependencies": {
     "@tailor-cms/ce-sequence-manifest": "workspace:*",
-    "@tailor-cms/eslint-config": "^2.0.3",
+    "@tailor-cms/eslint-config": "2.0.3",
     "@types/lodash-es": "^4.17.12",
     "@vitejs/plugin-vue": "^6.0.8",
     "typescript": "^6.0.3",

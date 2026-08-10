@@ -3,7 +3,7 @@
   "description": "Tailor CMS sequence element manifest",
   "author": "Studion <info@gostudion.com> (https://github.com/tailor-cms)",
   "type": "module",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "exports": {
     ".": {
       "import": "./dist/index.mjs",
@@ -25,11 +25,11 @@
     "prepublish": "pnpm build"
   },
   "dependencies": {
-    "@tailor-cms/cek-common": "^2.0.3",
+    "@tailor-cms/cek-common": "2.0.3",
     "uuid": "^14.0.1"
   },
   "devDependencies": {
-    "@tailor-cms/eslint-config": "^2.0.3",
+    "@tailor-cms/eslint-config": "2.0.3",
     "tsdown": "^0.22.14",
     "typescript": "^6.0.3"
   },
