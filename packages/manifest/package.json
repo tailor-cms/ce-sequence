@@ -11,7 +11,7 @@
   "homepage": "https://github.com/tailor-cms/ce-sequence#readme",
   "bugs": "https://github.com/tailor-cms/ce-sequence/issues",
   "type": "module",
-  "version": "0.0.5",
+  "version": "0.0.4",
   "exports": {
     ".": {
       "import": "./dist/index.mjs",
