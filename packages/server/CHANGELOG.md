@@ -1,5 +1,16 @@
 # @tailor-cms/ce-sequence-server
 
+## 0.1.0
+
+### Minor Changes
+
+- Migrate to the latest CEK version.
+
+### Patch Changes
+
+- Updated dependencies
+  - @tailor-cms/ce-sequence-manifest@0.1.0
+
 ## 0.0.4
 
 ### Patch Changes

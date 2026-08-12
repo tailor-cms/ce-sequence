@@ -1,5 +1,11 @@
 # @tailor-cms/ce-sequence-display
 
+## 0.1.0
+
+### Minor Changes
+
+- Migrate to the latest CEK version.
+
 ## 0.0.4
 
 ### Patch Changes

@@ -11,7 +11,7 @@
   "homepage": "https://github.com/tailor-cms/ce-sequence#readme",
   "bugs": "https://github.com/tailor-cms/ce-sequence/issues",
   "type": "module",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "exports": {
     ".": {
       "import": "./dist/index.js",
@@ -40,7 +40,7 @@
   },
   "devDependencies": {
     "@tailor-cms/ce-sequence-manifest": "workspace:*",
-    "@tailor-cms/eslint-config": "2.0.3",
+    "@tailor-cms/eslint-config": "2.1.0",
     "@types/lodash-es": "^4.17.12",
     "@vitejs/plugin-vue": "^6.0.8",
     "typescript": "^6.0.3",
