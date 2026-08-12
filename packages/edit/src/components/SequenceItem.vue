@@ -5,7 +5,7 @@
       <VExpansionPanelTitle
         v-bind="hoverProps"
         class="pa-2 pr-4"
-        min-height="56"
+        min-height="50"
         readonly
         @click="onTitleClick"
       >
@@ -17,58 +17,66 @@
           >
             <VIcon icon="mdi-drag-vertical" />
           </span>
-          <VAvatar
-            v-if="mode === 'steps'"
-            color="surface-container-highest"
-            size="26"
-            start
+          <div
+            :class="{ 'ml-3': isReadonly }"
+            class="d-flex w-100 align-center ga-2"
           >
-            <span class="text-label-large">{{ position }}</span>
-          </VAvatar>
-          <template v-else>
+            <VAvatar
+              v-if="mode === 'steps'"
+              color="surface-container-highest"
+              size="26"
+              start
+            >
+              <span class="text-label-large">{{ position }}</span>
+            </VAvatar>
+            <template v-else>
+              <VTextField
+                v-model="draft.marker"
+                :readonly="isReadonly"
+                bg-color="transparent"
+                class="sequence-item-marker flex-grow-0"
+                density="compact"
+                placeholder="Date"
+                variant="plain"
+                width="120"
+                hide-details
+                @blur="save.flush()"
+                @keyup.space.prevent
+                @update:model-value="save"
+              />
+              <VDivider class="mx-2 my-1" opacity="0.5" vertical />
+            </template>
             <VTextField
-              v-model="draft.marker"
+              v-model="draft.title"
               :readonly="isReadonly"
               bg-color="transparent"
-              class="sequence-item-marker flex-grow-0"
+              class="sequence-item-title"
               density="compact"
-              placeholder="Date"
+              placeholder="Title"
               variant="plain"
-              width="120"
               hide-details
               @blur="save.flush()"
               @keyup.space.prevent
               @update:model-value="save"
             />
-            <VDivider class="mx-2 my-1" opacity="0.5" vertical />
-          </template>
-          <VTextField
-            v-model="draft.title"
-            :readonly="isReadonly"
-            bg-color="transparent"
-            class="sequence-item-title"
-            density="compact"
-            placeholder="Title"
-            variant="plain"
-            hide-details
-            @blur="save.flush()"
-            @keyup.space.prevent
-            @update:model-value="save"
-          />
-          <VFadeTransition>
-            <VBtn
-              v-if="(isHovering || isExpanded) && !isReadonly && allowDeletion"
-              v-tooltip:bottom="{ text: 'Delete entry', openDelay: 300 }"
-              aria-label="Delete entry"
-              class="mr-2"
-              color="error"
-              density="comfortable"
-              icon="mdi-trash-can-outline"
-              size="small"
-              variant="tonal"
-              @click.stop="deleteEntry"
-            />
-          </VFadeTransition>
+            <VFadeTransition>
+              <VBtn
+                v-if="
+                  (isHovering || isExpanded) && !isReadonly && allowDeletion
+                "
+                v-tooltip:bottom="{ text: 'Delete entry', openDelay: 300 }"
+                aria-label="Delete entry"
+                class="mr-2"
+                color="error"
+                density="comfortable"
+                icon="mdi-trash-can-outline"
+                rounded="lg"
+                size="small"
+                variant="text"
+                @click.stop="deleteEntry"
+              />
+            </VFadeTransition>
+          </div>
         </div>
       </VExpansionPanelTitle>
     </VHover>
@@ -198,5 +206,9 @@ const deleteEntry = () => {
   :deep(.v-field) {
     --v-field-input-padding-top: 0;
   }
+}
+
+:deep(.v-btn) {
+  --v-hover-opacity: 0.12;
 }
 </style>
