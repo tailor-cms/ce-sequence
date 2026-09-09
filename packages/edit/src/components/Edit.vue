@@ -38,15 +38,7 @@
 </template>
 
 <script lang="ts" setup>
-import {
-  cloneDeep,
-  isEqual,
-  isNumber,
-  pick,
-  pull,
-  reduce,
-  sortBy,
-} from 'lodash-es';
+import { cloneDeep, isEqual, pick, pull, reduce, sortBy } from 'lodash-es';
 import { computed, inject, reactive, ref, watch } from 'vue';
 import type {
   Element,
@@ -80,7 +72,13 @@ elementBus.on('mode', (mode: SequenceMode) => {
   emit('save', elementData);
 });
 
-const items = computed(() => sortBy(elementData.items, 'position'));
+const items = computed({
+  get: () => sortBy(elementData.items, 'position'),
+  set: (reordered) => {
+    reordered.forEach(({ id }, i) => (elementData.items[id].position = i + 1));
+    emit('save', elementData);
+  },
+});
 const itemCount = computed(() => items.value.length);
 const embedsByItem = computed(() =>
   reduce(
@@ -125,27 +123,9 @@ const addItem = () => {
   emit('save', elementData);
 };
 
-const calculateNewPosition = (oldIndex: number, newIndex: number) => {
-  if (!newIndex) return items.value[newIndex].position / 2;
-  if (newIndex + 1 === itemCount.value) {
-    return items.value[newIndex].position + 1;
-  }
-  const direction = oldIndex > newIndex ? -1 : 1;
-  const prevPos = items.value[newIndex].position;
-  const nextPos = items.value[newIndex + direction].position;
-  return (nextPos + prevPos) / 2;
-};
-
-useDraggable(panels, {
+useDraggable(panels, items, {
   animation: 150,
   handle: '.sequence-drag-handle',
-  onUpdate: ({ oldIndex, newIndex }) => {
-    if (!isNumber(newIndex) || !isNumber(oldIndex)) return;
-    const position = calculateNewPosition(oldIndex, newIndex);
-    const currentItem = items.value[oldIndex];
-    Object.assign(elementData.items[currentItem.id], { position });
-    emit('save', elementData);
-  },
 });
 
 watch(
