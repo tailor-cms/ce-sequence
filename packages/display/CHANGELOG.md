@@ -1,5 +1,11 @@
 # @tailor-cms/ce-sequence-display
 
+## 0.1.1
+
+### Patch Changes
+
+- Cleanup draggable handler.█
+
 ## 0.1.0
 
 ### Minor Changes

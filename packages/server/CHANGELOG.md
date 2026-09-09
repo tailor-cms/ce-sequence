@@ -1,5 +1,13 @@
 # @tailor-cms/ce-sequence-server
 
+## 0.1.1
+
+### Patch Changes
+
+- Cleanup draggable handler.█
+- Updated dependencies
+  - @tailor-cms/ce-sequence-manifest@0.1.1
+
 ## 0.1.0
 
 ### Minor Changes
